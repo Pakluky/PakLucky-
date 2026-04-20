@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PakLucky Official | Luck Draw Pakistan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
+        .nav-link { cursor: pointer; transition: 0.3s; }
+        .nav-link:hover { color: #eab308; }
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .offer-badge { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        #captcha-display {
+            background: #f1f5f9;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 10px 10px;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 8px;
+            user-select: none;
+            text-decoration: line-through;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-[100] bg-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div onclick="showPage('home')" class="text-2xl font-black text-blue-900 tracking-tighter cursor-pointer">
+                PAK<span class="text-yellow-500">LUCKY</span>
+            </div>
+            <div class="hidden md:flex gap-8 font-bold text-gray-700">
+                <span onclick="showPage('home')" class="nav-link">Home</span>
+                <span onclick="showPage('prizes')" class="nav-link">Prizes</span>
+                <span onclick="showPage('about')" class="nav-link">About</span>
+                <span onclick="showPage('contact')" class="nav-link">Contact</span>
+            </div>
+            <a href="https://wa.me/923172708269" target="_blank" class="bg-green-500 text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 hover:bg-green-600 transition">
+                <i class="fab fa-whatsapp"></i> Live Chat
+            </a>
+        </div>
+    </nav>
+
+    <!-- Page: HOME -->
+    <main id="page-home" class="page-section active">
+        <header class="relative pt-32 pb-20 gradient-bg text-white overflow-hidden">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12 relative z-10">
+                <div class="md:w-1/2">
+                    <div class="offer-badge inline-block bg-red-600 text-white px-6 py-2 rounded-full text-sm font-black mb-6 shadow-lg border-2 border-yellow-400">
+                        🔥 MEGA OFFER: BUY 2 GET 1 FREE!
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
+                        Jeetain Apna <br><span class="text-yellow-400">Shandaar Ghar!</span>
+                    </h1>
+                    <p class="text-blue-100 text-xl mb-10 leading-relaxed">
+                        Pakistan ka sabse shaffaf lucky draw. Sirf 500 Rs mein apni qismat azmayein.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="scrollToRegister()" class="bg-yellow-500 text-blue-900 px-10 py-5 rounded-2xl font-black text-xl shadow-2xl hover:scale-105 transition-all">REGISTER NOW</button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Luxury House" class="rounded-[2.5rem] shadow-2xl border-4 border-white/20">
+                </div>
+            </div>
+        </header>
+
+        <!-- Registration Section -->
+        <section id="register-area" class="py-24 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-200">
+                    <div class="md:w-3/5 p-10 md:p-16">
+                        <!-- Step 1 Form -->
+                        <div id="step-1-form" class="block">
+                            <h2 class="text-4xl font-black text-blue-900 mb-2">Registration</h2>
+                            <p class="text-gray-500 mb-10">Tamam details sahi se fill karein.</p>
+                            
+                            <form id="regForm" class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" id="userName" placeholder="Pura Naam" class="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-gray-100 outline-none focus:border-blue-500" required>
+                                    <input type="tel" id="userPhone" placeholder="WhatsApp Number" class="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-gray-100 outline-none focus:border-blue-500" required>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" id="userCnic" placeholder="CNIC Number (13 Digits)" class="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-gray-100 outline-none focus:border-blue-500" required>
+                                    <input type="text" id="userCity" placeholder="City" class="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-gray-100 outline-none focus:border-blue-500" required>
+                                </div>
+                                <textarea id="userAddress" placeholder="Pura Address" class="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-gray-100 outline-none focus:border-blue-500 h-24" required></textarea>
+
+                                <div class="bg-gray-50 p-6 rounded-2xl border-2 border-gray-200">
+                                    <label class="block text-sm font-bold text-gray-700 mb-3 text-center uppercase tracking-widest">Captcha Verification</label>
+                                    <div class="flex flex-col items-center gap-4">
+                                        <div id="captcha-display" class="w-full py-4 text-center text-3xl font-black text-blue-900 rounded-xl shadow-inner border border-gray-300"></div>
+                                        <div class="flex w-full gap-2">
+                                            <input type="text" id="captcha-answer" placeholder="Enter Captcha" class="flex-grow px-4 py-4 rounded-xl border-2 border-gray-200 outline-none focus:border-blue-500 uppercase font-bold" required>
+                                            <button type="button" onclick="generateCaptcha()" class="bg-gray-200 px-4 rounded-xl"><i class="fas fa-sync-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full bg-blue-900 text-white py-5 rounded-2xl font-black text-xl shadow-xl hover:bg-black transition-all uppercase">Next to Step 2</button>
+                            </form>
+                        </div>
+
+                        <!-- Step 2 Payment -->
+                        <div id="step-2-form" style="display: none;" class="text-center">
+                            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-4"><i class="fas fa-check"></i></div>
+                            <h2 class="text-3xl font-black text-gray-900 mb-2 uppercase">Step 2: Payment</h2>
+                            <p class="text-gray-500 mb-6 text-sm">Ab payment bhej kar screenshot send karain.</p>
+                            
+                            <div class="bg-blue-900 text-white p-8 rounded-[2rem] mb-6 shadow-2xl">
+                                <p class="text-blue-300 font-bold text-xs mb-4">EASYPAISA / JAZZCASH</p>
+                                <p class="text-4xl font-black mb-2 tracking-widest">03172708269</p>
+                                <p class="text-yellow-400 font-bold text-lg mb-4">Title: PakLucky Official</p>
+                                <div class="bg-white/10 p-4 rounded-xl text-sm border border-white/10">
+                                    <i class="fas fa-info-circle mr-2 text-yellow-400"></i> Payment bhej kar uski **Receipt** ka screenshot le kar WhatsApp karain.
+                                </div>
+                            </div>
+
+                            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-5 rounded-2xl font-black text-xl shadow-xl flex items-center justify-center gap-4">
+                                <i class="fab fa-whatsapp text-3xl"></i> SEND SCREENSHOT
+                            </button>
+                            <div class="mt-8 p-4 border-2 border-dashed border-blue-200 rounded-2xl bg-blue-50">
+                                <p class="text-blue-900 text-xs font-bold uppercase leading-relaxed">
+                                    <i class="fas fa-image mr-1"></i> Screenshot Kya Bhejna Hai?<br>
+                                    <span class="text-gray-500 lowercase font-normal">EasyPaisa ki payment receipt aur apna Ticket confirmation.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:w-2/5 gradient-bg p-12 text-white flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold mb-8 border-b border-white/20 pb-4 uppercase">Verification Guide:</h3>
+                        <ul class="space-y-8">
+                            <li class="flex gap-4 items-start">
+                                <span class="bg-yellow-500 text-blue-900 font-black px-3 py-1 rounded-lg">1</span>
+                                <p class="text-sm">Apna Naam, WhatsApp, Address, CNIC aur City likh kar Captcha pass karein.</p>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <span class="bg-yellow-500 text-blue-900 font-black px-3 py-1 rounded-lg">2</span>
+                                <p class="text-sm">Diye gaye account par payment bhej kar screenshot upload karein aur WhatsApp par rabta karein.</p>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <span class="bg-yellow-500 text-blue-900 font-black px-3 py-1 rounded-lg">3</span>
+                                <p class="text-sm">Aapko ticket number mil jaye ga, uska screenshot le kar hamesha ke liye save kar lain.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Page: PRIZES -->
+    <section id="page-prizes" class="page-section py-32 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-black text-blue-900 mb-16 uppercase underline decoration-yellow-500">Prizes 🎁</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="p-10 bg-gray-50 rounded-[3rem] shadow-xl border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80" class="rounded-3xl mb-6 w-full h-48 object-cover">
+                    <h3 class="text-3xl font-black">Luxury House</h3>
+                    <p class="text-gray-500 mt-4 font-bold">2000 Sq Ft Dream House</p>
+                </div>
+                <div class="p-10 bg-gray-50 rounded-[3rem] shadow-xl border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80" class="rounded-3xl mb-6 w-full h-48 object-cover">
+                    <h3 class="text-3xl font-black">Luxury Car</h3>
+                    <p class="text-gray-500 mt-4 font-bold">Zero Meter New Car</p>
+                </div>
+                <div class="p-10 bg-gray-50 rounded-[3rem] shadow-xl border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=400&q=80" class="rounded-3xl mb-6 w-full h-48 object-cover">
+                    <h3 class="text-3xl font-black">Cash Prize</h3>
+                    <p class="text-gray-500 mt-4 font-bold">Rs. 1,000,000 Cash</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: ABOUT -->
+    <section id="page-about" class="page-section py-32 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-5xl font-black text-blue-900 mb-10 text-center uppercase">About & Privacy</h2>
+            <div class="space-y-12 text-gray-700">
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-black mb-4 text-blue-900 uppercase">About Us</h3>
+                    <p>PakLucky Pakistan ka sab se sasta aur shaffaf platform hai. Hamara maqsad ameer aur gareeb sab ko barabar ka moka dena hai ke wo apni zindagi badal sakein.</p>
+                </div>
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-black mb-4 text-blue-900 uppercase">Privacy Policy</h3>
+                    <p>Aapka data (Name, CNIC, Address) sirf ticket issuing ke liye istemal hota hai. Hum aapki information kisi teesre banday ko share nahi karte. Registration mehfooz hai.</p>
+                </div>
+                <div class="bg-red-50 p-10 rounded-[2.5rem] shadow-lg border border-red-100">
+                    <h3 class="text-2xl font-black mb-4 text-red-900 uppercase">Disclaimer</h3>
+                    <p class="text-red-800">PakLucky kisi bhi qism ke nuqsan ka zimadar nahi. Hum draws transparent tareeqe se live karte hain. Ticket kharidne se pehle terms ko parh lain.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: CONTACT -->
+    <section id="page-contact" class="page-section py-32 bg-white">
+        <div class="container mx-auto px-4 max-w-2xl text-center">
+            <div class="bg-blue-900 text-white p-16 rounded-[3rem] shadow-2xl">
+                <h2 class="text-4xl font-black mb-6 uppercase">Contact Support</h2>
+                <p class="mb-10 opacity-70">Hamari team se rabta karne ke liye WhatsApp button par click karain.</p>
+                <a href="https://wa.me/923172708269" target="_blank" class="block bg-green-500 py-6 rounded-2xl font-black text-2xl hover:bg-green-600 transition shadow-xl">
+                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp Now
+                </a>
+                <p class="mt-10 text-xs opacity-50 uppercase tracking-widest">Office: DHA Phase 6, Karachi</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 text-center md:text-left">
+                <!-- Branding -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-3xl font-black mb-4">PAK<span class="text-yellow-500">LUCKY</span></div>
+                    <p class="text-gray-400 text-sm">Pakistan's most trusted and transparent luck draw platform. Your dreams, our mission.</p>
+                </div>
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="text-yellow-500 font-bold mb-6 uppercase tracking-widest text-sm">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-400 font-medium">
+                        <li><span onclick="showPage('home')" class="hover:text-white cursor-pointer transition">Home</span></li>
+                        <li><span onclick="showPage('prizes')" class="hover:text-white cursor-pointer transition">Lucky Prizes</span></li>
+                        <li><span onclick="showPage('about')" class="hover:text-white cursor-pointer transition">About Us</span></li>
+                        <li><span onclick="showPage('contact')" class="hover:text-white cursor-pointer transition">Contact Us</span></li>
+                    </ul>
+                </div>
+                <!-- Support Links -->
+                <div>
+                    <h4 class="text-yellow-500 font-bold mb-6 uppercase tracking-widest text-sm">Support</h4>
+                    <ul class="space-y-4 text-gray-400 font-medium">
+                        <li><a href="https://wa.me/923172708269" target="_blank" class="hover:text-white transition">WhatsApp Support</a></li>
+                        <li><span onclick="showPage('about')" class="hover:text-white cursor-pointer transition">Privacy Policy</span></li>
+                        <li><span onclick="showPage('about')" class="hover:text-white cursor-pointer transition">Terms & Conditions</span></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-yellow-500 font-bold mb-6 uppercase tracking-widest text-sm">Location</h4>
+                    <p class="text-gray-400 text-sm mb-2">DHA Phase 6, Karachi, Pakistan</p>
+                    <div class="flex justify-center md:justify-start gap-4 mt-6">
+                        <a href="https://www.facebook.com/share/1N8KuFDj9n/" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/923172708269" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-500 transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.4em]">© 2026 PakLucky Official Platform. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentCaptcha = "";
+
+        function generateCaptcha() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            let result = "";
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = result;
+            document.getElementById('captcha-display').innerText = result;
+        }
+
+        window.onload = generateCaptcha;
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function scrollToRegister() {
+            showPage('home');
+            setTimeout(() => {
+                document.getElementById('register-area').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        document.getElementById('regForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userAnswer = document.getElementById('captcha-answer').value.toUpperCase();
+            if (userAnswer !== currentCaptcha) {
+                alert("Incorrect Captcha! Try again.");
+                generateCaptcha();
+                return;
+            }
+            document.getElementById('step-1-form').style.display = 'none';
+            document.getElementById('step-2-form').style.display = 'block';
+            document.getElementById('register-area').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function sendWhatsApp() {
+            const name = document.getElementById('userName').value;
+            const cnic = document.getElementById('userCnic').value;
+            const city = document.getElementById('userCity').value;
+            const message = `Assalam o Alaikum PakLucky Team!\n\nMaine Register kar liya hai.\n\nName: ${name}\nCNIC: ${cnic}\nCity: ${city}\n\nOffer: Buy 2 Get 1 FREE\n\nPlease check my payment screenshot and issue my Step 3 Ticket Number.`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/923172708269?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
